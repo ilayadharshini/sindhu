@@ -53,27 +53,6 @@ function App() {
       <FloatingHearts />
       <div className="level-indicator" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
         <span>{level <= 13 ? `Level ${level}` : "Final Surprise ❤️"}</span>
-        {level < 14 && (
-          <div style={{ display: 'flex', gap: '5px' }}>
-            <button 
-              onClick={nextLevel} 
-              style={{ padding: '2px 8px', fontSize: '0.7rem', width: 'auto', background: '#333', color: 'white', border: 'none', borderRadius: '10px', boxShadow: 'none' }}
-              title="Skip to next level"
-            >
-              Skip
-            </button>
-            <select 
-              value={level} 
-              onChange={(e) => setLevel(Number(e.target.value))}
-              style={{ padding: '2px', fontSize: '0.7rem', background: '#333', color: 'white', border: 'none', borderRadius: '5px' }}
-              title="Jump to level"
-            >
-              {[1,2,3,4,5,6,7,8,9,10,11,12,13,14].map(l => (
-                <option key={l} value={l}>Lvl {l}</option>
-              ))}
-            </select>
-          </div>
-        )}
       </div>
       <ChocolateBadge />
       
