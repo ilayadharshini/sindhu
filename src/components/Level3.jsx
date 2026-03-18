@@ -75,7 +75,7 @@ const Level3 = ({ onNext, onPenalty }) => {
       <Lock className="icon-header" size={40} color="#ff3a71" />
       <h2>Sister Bond Code</h2>
       <p className="system-msg">“Swipe the Secret Pattern ❤️”</p>
-      <p>Most used word in our chat : <span style={{ color: '#ff4d6d', fontWeight: '800' }}>S ➔ U ➔ M ➔ U</span></p>
+      <p>Most used word in our chat </p>
 
       <div 
         className="pattern-lock-container"

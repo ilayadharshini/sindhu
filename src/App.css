@@ -37,6 +37,19 @@
   opacity: 0.8;
 }
 
+/* Level 1 Success */
+.success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.success-text {
+  text-align: center;
+}
+
 /* Level 2 Popup */
 .mini-popup {
   position: absolute;
@@ -357,15 +370,28 @@ textarea {
 }
 
 .reaction-label {
-  font-size: 1rem;
-  font-weight: 700;
-  margin: 15px 0;
-  color: var(--primary);
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 15px 0 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .reaction-result {
   font-style: italic;
-  color: var(--text-light);
+  font-weight: 500;
+  color: #666;
+}
+
+.penalty-btn {
+  animation: shake 0.5s ease-in-out;
+  box-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 
 /* Level 8: Full Space Cupid Archery */
@@ -749,25 +775,44 @@ textarea {
   }
 }
 
-.game-stats-overlay {
-  position: absolute;
-  bottom: 25px;
-  width: 100%;
-  text-align: center;
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  z-index: 70;
-}
+/* Mobile Responsiveness for Arenas */
+@media (max-width: 600px) {
+  .full-arena-card {
+    border-radius: 20px !important;
+    border-width: 4px !important;
+  }
 
-.impact-effect {
-  position: absolute;
-  font-size: 4rem;
-  pointer-events: none;
-  z-index: 101;
-  animation: impact-shimmer 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  .shooter-arena {
+    height: 380px !important; /* Smaller height on mobile */
+  }
+
+  /* Level 10 & 12 HUD adjustments */
+  .shooter-arena + div, 
+  .full-arena-card > div:first-child {
+    padding: 12px 15px !important;
+  }
+
+  .full-arena-card h2, 
+  .full-arena-card h3 {
+    font-size: 1.1rem !important;
+  }
+
+  .full-arena-card p {
+    font-size: 0.75rem !important;
+  }
+
+  .shooter-header {
+      padding: 15px !important;
+  }
+
+  .heart-lives span {
+      font-size: 1.2rem !important;
+  }
+
+  .arrow-count {
+      font-size: 0.8rem !important;
+      padding: 4px 10px !important;
+  }
 }
 
 @keyframes impact-shimmer {

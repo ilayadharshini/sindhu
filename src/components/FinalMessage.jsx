@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Trophy, Send, MessageCircleHeart, Share2, Copy, Sparkles } from 'lucide-react';
+import { Trophy, Send, MessageCircleHeart, Share2, Copy, Sparkles, Heart } from 'lucide-react';
 
 const FinalMessage = ({ chocolates, cheated }) => {
   useEffect(() => {
@@ -18,34 +18,34 @@ Total Chocolate Penalty: ${chocolates} 🍫
 ${cheated ? 'Wait... I also got caught cheating! 😜🚫' : 'I played fair! ✅'}
 Waiting for my gifts! ✨❤️`;
 
+  const sendAutoReport = async () => {
+    try {
+      await fetch("https://formsubmit.co/ajax/4d3d6f213cfe57db73a76cfb4a583d0c", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          Subject: `🏆 Challenge Completed! Total Penalty: ${chocolates} Chocolates! 🍫`,
+          "Chocolate Penalty": chocolates,
+          "Cheated Detected": cheated ? "YES 🚫" : "NO ✅",
+          Message: shareText,
+          "_captcha": "false"
+        })
+      });
+      console.log("Report sent to Britto!");
+    } catch (err) {
+      console.error("Auto-report failed", err);
+    }
+  };
+
   useEffect(() => {
     confetti({
       particleCount: 150,
       spread: 70,
       origin: { y: 0.6 }
     });
-
-    const sendAutoReport = async () => {
-      try {
-        await fetch("https://formsubmit.co/ajax/4d3d6f213cfe57db73a76cfb4a583d0c", {
-          method: "POST",
-          headers: { 
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            Subject: `🏆 Challenge Completed! Total Penalty: ${chocolates} Chocolates! 🍫`,
-            "Chocolate Penalty": chocolates,
-            "Cheated Detected": cheated ? "YES 🚫" : "NO ✅",
-            Message: shareText,
-            "_captcha": "false"
-          })
-        });
-        console.log("Report sent to Britto!");
-      } catch (err) {
-        console.error("Auto-report failed", err);
-      }
-    };
 
     sendAutoReport();
   }, [chocolates, cheated, shareText]);
@@ -97,42 +97,26 @@ Waiting for my gifts! ✨❤️`;
       </p>
       <h2 style={{ fontSize: '1.4rem', marginTop: '10px' }}>Love you so much, Sindhu Akka ❤️</h2>
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', marginTop: '25px' }}>
-        <button 
-          className="outline-btn" 
-          style={{ padding: '10px' }}
-          onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank')}
-        >
-          <Send size={16} /> WhatsApp
-        </button>
-
-        <button 
-          className="outline-btn" 
-          style={{ padding: '10px' }}
-          onClick={() => {
-            const subject = encodeURIComponent("Sister Bond Results! 🏆");
-            window.location.href = `mailto:ilayamdharshini@gmail.com?subject=${subject}&body=${encodeURIComponent(shareText)}`;
-          }}
-        >
-          <MessageCircleHeart size={16} /> Email
-        </button>
-
-        <button 
-          className="outline-btn" 
-          style={{ padding: '10px' }}
-          onClick={handleNativeShare}
-        >
-          <Share2 size={16} /> Share All
-        </button>
-
-        <button 
-          className="outline-btn" 
-          style={{ padding: '10px' }}
-          onClick={copyToClipboard}
-        >
-          <Copy size={16} /> Copy Report
-        </button>
-      </div>
+      <motion.div 
+        whileHover={{ scale: 1.1 }} 
+        whileTap={{ scale: 0.9 }}
+        style={{ marginTop: '40px', cursor: 'pointer' }}
+        onClick={() => {
+          sendAutoReport();
+          const subject = encodeURIComponent("Sister Bond Results! 🏆");
+          window.location.href = `mailto:ilayamdharshini@gmail.com?subject=${subject}&body=${encodeURIComponent(shareText)}`;
+        }}
+      >
+        <div style={{ position: 'relative', width: '80px', height: '80px', margin: '0 auto' }}>
+          <Heart size={80} color="#ff3a71" fill="#ff3a71" style={{ filter: 'drop-shadow(0 0 20px #ff3a71)' }} />
+          <motion.div 
+            animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+            style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#ff3a71', zIndex: -1 }}
+          />
+        </div>
+        <p style={{ marginTop: '15px', color: '#ff3a71', fontWeight: 900, fontSize: '0.9rem' }}>TAP HEART TO SEND REPORT ❤️</p>
+      </motion.div>
 
       <Sparkles className="sparkle-icon" />
     </motion.div>
