@@ -53,7 +53,7 @@ function App() {
       <FloatingHearts />
       <div className="level-indicator">
         <span>{level <= 12 ? `Level ${level}` : "Final Surprise ❤️"}</span>
-         {level < 13 && (
+         {/* {level < 13 && (
           <div style={{ display: 'flex', gap: '5px' }}>
             <button 
               onClick={nextLevel} 
@@ -73,7 +73,7 @@ function App() {
               ))}
             </select>
           </div>
-        )}
+        )} */}
       </div>
       <ChocolateBadge />
       
