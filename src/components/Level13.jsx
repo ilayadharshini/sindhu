@@ -67,15 +67,11 @@ const Level13 = ({ onNext }) => {
         textAlign: 'center', 
         position: 'relative', 
         overflow: 'hidden', 
-        minHeight: '500px', 
+        minHeight: '550px', 
         display: 'flex', 
         flexDirection: 'column', 
         justifyContent: 'center', 
-        alignItems: 'center',
-        background: 'linear-gradient(135deg, #1a0b12 0%, #2d0b17 100%)',
-        border: '5px solid #ff3a71',
-        borderRadius: '50px',
-        boxShadow: '0 30px 60px rgba(0,0,0,0.4), inset 0 0 100px rgba(255, 58, 113, 0.1)'
+        alignItems: 'center'
       }}
     >
       {!isExploded ? (
@@ -84,14 +80,14 @@ const Level13 = ({ onNext }) => {
             <motion.div 
               animate={{ opacity: [0.3, 0.8, 0.3], scale: [0.98, 1.02, 0.98] }}
               transition={{ duration: 2, repeat: Infinity }}
-              style={{ background: 'rgba(255, 58, 113, 0.2)', padding: '8px 20px', borderRadius: '20px', display: 'inline-block', border: '1px solid rgba(255, 58, 113, 0.4)' }}
+              style={{ background: 'rgba(255, 77, 109, 0.1)', padding: '8px 20px', borderRadius: '20px', display: 'inline-block', border: '1px solid rgba(255, 77, 109, 0.2)' }}
             >
-              <span style={{ color: '#ff3a71', fontWeight: '900', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '0.8rem' }}>⚠️ Emotional Overload Detected</span>
+              <span style={{ color: 'var(--primary)', fontWeight: '900', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '0.8rem' }}>⚠️ Emotional Overload Detected</span>
             </motion.div>
           </div>
 
-          <h2 style={{ color: 'white', fontSize: '2.2rem', fontFamily: 'cursive', marginBottom: '10px' }}>Level 13: Heart Chamber</h2>
-          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem', marginBottom: '40px', maxWidth: '350px', fontWeight: 'bold' }}>
+          <h2 style={{ color: 'var(--primary-dark)', fontSize: '2.2rem', fontFamily: 'cursive', marginBottom: '10px' }}>Level 11: Heart Chamber</h2>
+          <p style={{ color: '#666', fontSize: '1rem', marginBottom: '40px', maxWidth: '350px', fontWeight: 'bold' }}>
             The pressure is rising! Tap the crystal heart to release the pure affection! ✨
           </p>
 
@@ -100,8 +96,8 @@ const Level13 = ({ onNext }) => {
             <motion.div
               animate={{
                 scale: [1, 1.4 + (clicks * 0.08), 1],
-                opacity: [0.2, 0.5, 0.2],
-                backgroundColor: clicks > 10 ? '#ff3a71' : 'var(--primary)'
+                opacity: [0.1, 0.3, 0.1],
+                backgroundColor: 'var(--primary)'
               }}
               transition={{ duration: 1 / (1 + clicks * 0.2), repeat: Infinity }}
               style={{
@@ -183,12 +179,12 @@ const Level13 = ({ onNext }) => {
 
           <div style={{ width: '100%', maxWidth: '300px', marginTop: '50px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
-              <span style={{ fontSize: '0.9rem', color: '#ff3a71', fontWeight: '900', letterSpacing: '1px' }}>CAPACITY</span>
-              <span style={{ color: 'white', fontWeight: 'bold' }}>{Math.round(progress)}%</span>
+              <span style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: '900', letterSpacing: '1px' }}>CAPACITY</span>
+              <span style={{ color: 'var(--primary-dark)', fontWeight: 'bold' }}>{Math.round(progress)}%</span>
             </div>
-            <div style={{ height: '14px', background: 'rgba(255,255,255,0.05)', borderRadius: '20px', overflow: 'hidden', padding: '3px', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <div style={{ height: '14px', background: 'rgba(255, 77, 109, 0.1)', borderRadius: '20px', overflow: 'hidden', padding: '3px', border: '1px solid rgba(255, 77, 109, 0.1)' }}>
               <motion.div 
-                animate={{ width: `${progress}%`, background: `linear-gradient(90deg, #ff3a71, #ff85a1)` }}
+                animate={{ width: `${progress}%`, background: `linear-gradient(90deg, var(--primary), var(--primary-light))` }}
                 style={{ height: '100%', borderRadius: '15px' }}
               />
             </div>
@@ -197,7 +193,7 @@ const Level13 = ({ onNext }) => {
           <motion.p 
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 0.5, repeat: Infinity }}
-            style={{ marginTop: '25px', color: 'white', fontSize: '1.1rem', fontWeight: '900' }}
+            style={{ marginTop: '25px', color: 'var(--primary-dark)', fontSize: '1.1rem', fontWeight: '900' }}
           >
             TAP FAST!! {REQUIRED_CLICKS - clicks} TO BURST!
           </motion.p>
@@ -210,16 +206,16 @@ const Level13 = ({ onNext }) => {
         >
           <motion.div
             initial={{ scale: 0 }}
-            animate={{ scale: [0, 2, 1], rotate: [0, 360, 0] }}
+            animate={{ scale: [0, 1.2, 1], rotate: [0, 360, 0] }}
             transition={{ duration: 1.5 }}
           >
-            <Sparkles size={120} color="#ff3a71" style={{ marginBottom: '30px', filter: 'drop-shadow(0 0 40px #ff3a71)' }} />
+            <Sparkles size={120} color="#ff3a71" style={{ marginBottom: '30px', filter: 'drop-shadow(0 0 40px rgba(255, 58, 113, 0.4))' }} />
           </motion.div>
           
-          <h1 style={{ color: 'white', fontSize: '4rem', fontFamily: 'cursive', textShadow: '0 0 40px #ff3a71', marginBottom: '15px' }}>BOOM!</h1>
-          <h2 style={{ color: '#ffcbd5', fontSize: '1.8rem', fontWeight: '900', letterSpacing: '3px' }}>LOVE EXPLOSION! 💖</h2>
+          <h1 style={{ color: 'var(--primary-dark)', fontSize: '4rem', fontFamily: 'cursive', textShadow: '0 0 40px rgba(255, 58, 113, 0.2)', marginBottom: '15px' }}>BOOM!</h1>
+          <h2 style={{ color: 'var(--primary)', fontSize: '1.8rem', fontWeight: '900', letterSpacing: '3px' }}>LOVE EXPLOSION! 💖</h2>
           
-          <p style={{ fontSize: '1.3rem', color: '#eee', maxWidth: '350px', margin: '20px auto', lineWeight: '1.6' }}>
+          <p style={{ fontSize: '1.3rem', color: '#666', maxWidth: '350px', margin: '20px auto', fontWeight: '500' }}>
             The heart couldn't contain all that love! It has showered the world in magic! ✨
           </p>
 
@@ -239,8 +235,8 @@ const Level13 = ({ onNext }) => {
                 transition={{ duration: 3 + Math.random() * 2 }}
                 style={{ position: 'absolute' }}
               >
-                <div style={{ fontSize: `${Math.random() * 40 + 20}px`, filter: 'drop-shadow(0 0 10px #ff3a71)' }}>
-                    {['❤️', '💖', '✨', '🌸', '🎁'][Math.floor(Math.random() * 5)]}
+                <div style={{ fontSize: `${Math.random() * 40 + 20}px`, filter: 'drop-shadow(0 0 10px rgba(255, 77, 109, 0.3))' }}>
+                    {p.size ? ['❤️', '💖', '✨', '🌸', '🎁', '🍫'][Math.floor(Math.random() * 6)] : '✨'}
                 </div>
               </motion.div>
             ))}
@@ -251,7 +247,7 @@ const Level13 = ({ onNext }) => {
       {/* Screen Glitch intensity */}
       {clicks > 12 && !isExploded && (
         <motion.div
-          animate={{ opacity: [0, 0.4, 0] }}
+          animate={{ opacity: [0, 0.2, 0] }}
           transition={{ duration: 0.05, repeat: Infinity }}
           style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'white', zIndex: 0, pointerEvents: 'none' }}
         />

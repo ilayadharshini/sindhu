@@ -1,25 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Gamepad2 } from 'lucide-react';
+import { Gamepad2, Timer, RefreshCcw } from 'lucide-react';
 
 const EMOJIS = ['👯‍♀️', '🍫', '🍕', '😂', '🎁', '📸'];
 
-const Level4 = ({ onNext }) => {
+const Level4 = ({ onNext, onPenalty }) => {
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [solved, setSolved] = useState([]);
   const [disabled, setDisabled] = useState(false);
+  const [timer, setTimer] = useState(45);
+  const [isGameOver, setIsGameOver] = useState(false);
 
-  useEffect(() => {
-    // Shuffle cards
+  const initGame = () => {
     const shuffledCards = [...EMOJIS, ...EMOJIS]
       .sort(() => Math.random() - 0.5)
       .map((emoji, index) => ({ id: index, emoji }));
     setCards(shuffledCards);
+    setFlipped([]);
+    setSolved([]);
+    setDisabled(false);
+    setTimer(45);
+    setIsGameOver(false);
+  };
+
+  useEffect(() => {
+    initGame();
   }, []);
 
+  useEffect(() => {
+    if (isGameOver || solved.length === EMOJIS.length * 2) return;
+    
+    if (timer <= 0) {
+      setIsGameOver(true);
+      onPenalty(); // Add penalty when time is up
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setTimer(prev => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timer, isGameOver, solved.length]);
+
   const handleCardClick = (index) => {
-    if (disabled || flipped.includes(index) || solved.includes(index)) return;
+    if (disabled || flipped.includes(index) || solved.includes(index) || isGameOver) return;
 
     const newFlipped = [...flipped, index];
     setFlipped(newFlipped);
@@ -52,14 +78,30 @@ const Level4 = ({ onNext }) => {
     <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} className="glass-card">
       <Gamepad2 className="icon-header" size={48} color="#ff3a71" />
       <h2>Memory Match</h2>
-      <p className="system-msg">“Match the pairs to prove your bond.”</p>
+      <p className="system-msg">“Match the pairs before time runs out!”</p>
+
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '10px',
+        margin: '15px 0',
+        color: timer <= 10 ? '#ff3a71' : 'var(--primary)',
+        fontWeight: 'bold',
+        fontSize: '1.2rem'
+      }}>
+        <Timer size={24} />
+        <span>{timer}s</span>
+      </div>
       
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '12px',
-        marginTop: '25px',
-        marginBottom: '20px'
+        marginTop: '10px',
+        marginBottom: '20px',
+        opacity: isGameOver ? 0.3 : 1,
+        pointerEvents: isGameOver ? 'none' : 'auto'
       }}>
         {cards.map((card, index) => {
           const isFlipped = flipped.includes(index) || solved.includes(index);
@@ -89,6 +131,15 @@ const Level4 = ({ onNext }) => {
           );
         })}
       </div>
+
+      {isGameOver && (
+        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className="game-over">
+          <p className="error-text" style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>Time's Up! ⏰ Oops!</p>
+          <button onClick={initGame} style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: '15px auto' }}>
+            <RefreshCcw size={18} /> Try Again
+          </button>
+        </motion.div>
+      )}
       
       {solved.length === EMOJIS.length * 2 && (
         <motion.p initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} className="success-text">

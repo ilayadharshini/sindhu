@@ -53,7 +53,7 @@ function App() {
       <FloatingHearts />
       <div className="level-indicator">
         <span>{level <= 12 ? `Level ${level}` : "Final Surprise ❤️"}</span>
-         {/* {level < 13 && (
+         {level < 13 && (
           <div style={{ display: 'flex', gap: '5px' }}>
             <button 
               onClick={nextLevel} 
@@ -73,7 +73,7 @@ function App() {
               ))}
             </select>
           </div>
-        )} */}
+        )}
       </div>
       <ChocolateBadge />
       
@@ -91,7 +91,7 @@ function App() {
 
         {/* Phase 3: Fun Challenges */}
         {level === 8 && <Level6 key="l8" onNext={nextLevel} onPenalty={addPenalty} onCheat={addCheat} />}
-        {level === 9 && <Level4 key="l9" onNext={nextLevel} />}
+        {level === 9 && <Level4 key="l9" onNext={nextLevel} onPenalty={addPenalty} />}
 
         {/* Phase 4: Action & Celebration */}
         {level === 10 && <Level12 key="l10" onNext={nextLevel} onPenalty={addPenalty} />}

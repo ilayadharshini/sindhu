@@ -197,7 +197,7 @@ const LovePuzzle = ({ onNext }) => {
                 "{solvedWords.join(' ')}" 🥹❤️
               </p>
               <p style={{ fontSize: '0.9rem', color: '#888', marginTop: '10px' }}>
-                That's Britto's secret message just for you, di! 😊
+                That's Britto's secret message just for you, ka! 😊
               </p>
             </div>
 

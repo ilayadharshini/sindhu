@@ -4,34 +4,36 @@ const FloatingHearts = () => {
   const [particles, setParticles] = useState([]);
 
   useEffect(() => {
-    const items = ['❤️', '💖', '💗', '💓', '💞', '💕', '💘', '🌸', '✨'];
-    const interval = setInterval(() => {
-      setParticles(prev => [...prev.slice(-50), {
-        id: Date.now() + Math.random(),
+    const items = ['❤️', '💖', '💗', '💓', '💞', '💕', '💘', '🌸', '🌺', '🌻', '🌼', '🌷', '🥀', '✨', '🌸', '🌺'];
+    
+    // Pre-populate background on load
+    const initialParticles = Array.from({ length: 120 }).map((_, i) => ({
+        id: i,
         char: items[Math.floor(Math.random() * items.length)],
         left: Math.random() * 100,
-        size: Math.random() * 25 + 15,
-        duration: Math.random() * 8 + 6,
-        delay: Math.random() * 5
-      }]);
-    }, 4500); // Slower interval but we spawn more per tick or keep more alive
-    
-    // Actually, let's just make it spawn much faster for "more hearts"
-    const fastInterval = setInterval(() => {
-        setParticles(prev => [...prev.slice(-60), {
-          id: Date.now() + Math.random(),
-          char: items[Math.floor(Math.random() * items.length)],
-          left: Math.random() * 100,
-          size: Math.random() * 20 + 10,
-          duration: Math.random() * 12 + 8,
-          delay: 0
-        }]);
-      }, 600);
+        bottom: Math.random() * 100, // Randomized starting vertical position
+        size: Math.random() * 25 + 12,
+        duration: Math.random() * 15 + 10,
+        delay: -Math.random() * 30 // Negative delay so they are mid-animation
+    }));
+    setParticles(initialParticles);
 
-    return () => {
-        clearInterval(interval);
-        clearInterval(fastInterval);
-    };
+    const spawnInterval = setInterval(() => {
+        setParticles(prev => {
+          const newParticle = {
+            id: Date.now() + Math.random(),
+            char: items[Math.floor(Math.random() * items.length)],
+            left: Math.random() * 100,
+            bottom: -5, // Start below viewport
+            size: Math.random() * 25 + 12,
+            duration: Math.random() * 15 + 10,
+            delay: 0
+          };
+          return [...prev.slice(-150), newParticle]; // Keep up to 150 particles
+        });
+      }, 350);
+
+    return () => clearInterval(spawnInterval);
   }, []);
 
   return (
@@ -42,6 +44,7 @@ const FloatingHearts = () => {
           className="floating-heart-particle"
           style={{ 
             left: `${p.left}%`, 
+            bottom: `${p.bottom}%`,
             fontSize: `${p.size}px`,
             animationDuration: `${p.duration}s`,
             animationDelay: `${p.delay}s`

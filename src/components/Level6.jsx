@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Loader2, PauseCircle, PlayCircle } from 'lucide-react';
+import SuccessReward from './SuccessReward';
+import girlAvatar from '../assets/girl_avatar.png';
 
 const Level6 = ({ onNext, onPenalty, onCheat }) => {
   const [timer, setTimer] = useState(20);
@@ -51,10 +53,20 @@ const Level6 = ({ onNext, onPenalty, onCheat }) => {
           <button onClick={() => setStarted(true)}>Start Timer</button>
         </>
       ) : analyzing ? (
-        <div className="overheat">
-          <p>Loading... This gossip is too spicy for Britto's servers. 🔥</p>
-          <p className="error-text">System Overload! Gossip overload detected. 🤣</p>
-          <Loader2 className="spinning" />
+        <div className="success-container">
+          <SuccessReward imagePath={girlAvatar} />
+          <motion.div 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            className="success-text"
+          >
+             <p style={{ fontSize: '1.25rem', fontWeight: 600, color: '#666', marginTop: '-20px' }}>
+              Welcome on board my chla akkalye 😜
+            </p>
+            <p className="system-msg" style={{ marginTop: '20px', letterSpacing: '4px' }}>
+              CALCULATING NEXT CHALLENGE...
+            </p>
+          </motion.div>
         </div>
       ) : (
         <div className="gossip-input">
@@ -69,10 +81,9 @@ const Level6 = ({ onNext, onPenalty, onCheat }) => {
             </motion.div>
           </div>
 
-          {/* Timer display */}
           <motion.p
-            animate={{ scale: timer <= 5 && !isTypingDisplay ? [1, 1.15, 1] : 1 }}
-            transition={{ duration: 0.5, repeat: timer <= 5 && !isTypingDisplay ? Infinity : 0 }}
+            animate={{ scale: timer <= 5 ? [1, 1.15, 1] : 1 }}
+            transition={{ duration: 0.5, repeat: timer <= 5 ? Infinity : 0 }}
             className="timer"
             style={{ color: timerColor, textShadow: timer <= 5 ? `0 0 10px ${timerColor}` : 'none' }}
           >
